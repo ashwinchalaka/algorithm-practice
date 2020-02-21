@@ -11,7 +11,7 @@ class Solution {
         
         int upOrDown = 0;
         
-        System.out.print("\n" + matrix[iMatrix][jMatrix]);
+        // System.out.print("\n" + matrix[iMatrix][jMatrix]);
         
         for (int p = 0; p < diagOrderArr.length; p++) {
             
@@ -20,34 +20,46 @@ class Solution {
                 jMatrix++;
                 upOrDown = 2;
             }
-            else if (jMatrix == matrixCols && iMatrix == 0){
+            else if (jMatrix >= matrixCols && iMatrix <= 0){
                 System.out.print("\n#2\n");
+                iMatrix++;
+                jMatrix--;
                 iMatrix++;
                 upOrDown = 2;
             }
-            else if (iMatrix == matrixRows && jMatrix == 0) {
+            else if (iMatrix >= matrixRows && jMatrix <= 0) {
                 System.out.print("\n#3\n");
+                iMatrix--;
+                jMatrix++;
                 jMatrix++;
                 upOrDown = 1;
             }
-            // else if (jMatrix == 0 || jMatrix == matrixCols) {
-            //     System.out.print("\n#4\n");
-            //     iMatrix++;
-            //     upOrDown = 1;
-            // }
-            // else if (iMatrix == 0 || iMatrix == matrixRows) {
-            //     System.out.print("\n#5\n");
-            //     jMatrix++;
-            //     upOrDown = 2;
-            // }
             else if (upOrDown == 1) {
                 System.out.print("\n#6\n");
-                iMatrix--;
-                jMatrix++;
+                if (iMatrix == 0) {
+                    jMatrix++;
+                    upOrDown = 2;
+                } else if (iMatrix == matrixRows) {
+                    jMatrix++;
+                    upOrDown = 1;
+                } else {
+                    iMatrix--;
+                    jMatrix++;   
+                }
+                
             } else if (upOrDown == 2) {
                 System.out.print("\n#7\n");
-                iMatrix++;
-                jMatrix--;
+                if (jMatrix == 0) {
+                    iMatrix++;
+                    upOrDown = 1;
+                } else if (jMatrix == matrixCols) {
+                    iMatrix++;
+                    upOrDown = 2;
+                } else {
+                    iMatrix++;
+                    jMatrix--;
+                }   
+                
             } else {
                 System.out.print("\n#8\ngotta debug something here...");
             }
