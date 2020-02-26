@@ -6,6 +6,9 @@ class Solution {
         String bi1 = a;
         String bi2 = b;
         
+        System.out.println(bi1 + " " + bi1.length());
+        System.out.println(bi2 + " " + bi2.length());
+        
         if (bi1.length() > bi2.length()) {
             int difference = bi1.length() - bi2.length();
             
@@ -15,7 +18,7 @@ class Solution {
                 extraZeros += "0";
             }
             
-            bi1 = extraZeros + bi1;
+            bi2 = extraZeros + bi2;
         }
         
         if (bi2.length() > bi1.length()) {
@@ -27,8 +30,11 @@ class Solution {
                 extraZeros += "0";
             }
             
-            bi2 = extraZeros + bi2;
+            bi1 = extraZeros + bi1;
         }
+        
+        System.out.println(bi1 + " " + bi1.length());
+        System.out.println(bi2 + " " + bi2.length());
         
         int bi1Pointer = bi1.length()-1;
         int bi2Pointer = bi2.length()-1;
