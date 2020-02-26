@@ -3,26 +3,53 @@ class Solution {
         
         String binarySum = "";
 
-        int aPointer = a.length()-1;
-        int bPointer = b.length()-1;
+        String bi1 = a;
+        String bi2 = b;
         
-        int valueAtAPointer;
-        int valueAtBPointer;
+        if (bi1.length() > bi2.length()) {
+            int difference = bi1.length() - bi2.length();
+            
+            String extraZeros = "";
+            
+            for (int i = 0; i < difference; i++) {
+                extraZeros += "0";
+            }
+            
+            bi1 = extraZeros + bi1;
+        }
+        
+        if (bi2.length() > bi1.length()) {
+            int difference = bi2.length() - bi1.length();
+                        
+            String extraZeros = "";
+            
+            for (int i = 0; i < difference; i++) {
+                extraZeros += "0";
+            }
+            
+            bi2 = extraZeros + bi2;
+        }
+        
+        int bi1Pointer = bi1.length()-1;
+        int bi2Pointer = bi2.length()-1;
+        
+        int valueAtbi1Pointer;
+        int valueAtbi2Pointer;
         int remainder = 0;
         
-        while (aPointer > -1 && bPointer > -1) {
+        while (bi1Pointer > -1 && bi2Pointer > -1) {
             
-            valueAtAPointer = Character.getNumericValue(a.charAt(aPointer));
-            valueAtBPointer = Character.getNumericValue(b.charAt(bPointer));
+            valueAtbi1Pointer = Character.getNumericValue(bi1.charAt(bi1Pointer));
+            valueAtbi2Pointer = Character.getNumericValue(bi2.charAt(bi2Pointer));
             
-            if (valueAtAPointer == 0 && valueAtBPointer == 0) {
+            if (valueAtbi1Pointer == 0 && valueAtbi2Pointer == 0) {
                 if (remainder == 1) {
                     binarySum = "1" + binarySum;
                     remainder = 0;
                 } else {
                     binarySum = "0" + binarySum;
                 }
-            } else if (valueAtAPointer == 1 && valueAtBPointer == 1) {
+            } else if (valueAtbi1Pointer == 1 && valueAtbi2Pointer == 1) {
                 if (remainder == 1) {
                     binarySum = "1" + binarySum;
                     remainder = 1;
@@ -38,65 +65,13 @@ class Solution {
                     binarySum = "1" + binarySum;
             }
             
-            aPointer--;
-            bPointer--;
+            bi1Pointer--;
+            bi2Pointer--;
         }
         
-        if (aPointer > -1) {
-            if (remainder == 1) {
-                while (remainder == 1 && aPointer > -1) {
-                    valueAtAPointer = Character.getNumericValue(a.charAt(aPointer));
-                    
-                    if (valueAtAPointer == 0) {
-                        binarySum = "1" + binarySum;
-                        remainder = 0;
-                    } else {
-                        binarySum = "0" + binarySum;
-                        remainder = 1;
-                    }
-                    
-                    aPointer--;
-                }
-                
-                if (aPointer > -1) {
-                    binarySum = a.substring(0, aPointer) + binarySum;
-                } else {
-                    if (remainder == 1) {
-                        binarySum = "1" + binarySum;
-                        remainder = 0;
-                    }
-                }
-            }
-        } else if (bPointer > -1) {
-            if (remainder == 1) {        
-                while (remainder == 1 && bPointer > -1) {
-                    valueAtBPointer = Character.getNumericValue(b.charAt(bPointer));
-                    
-                    if (valueAtBPointer == 0) {
-                        binarySum = "1" + binarySum;
-                        remainder = 0;
-                    } else {
-                        binarySum = "0" + binarySum;
-                        remainder = 1;
-                    }
-                    
-                    bPointer--;
-                }
-                
-                if (bPointer > -1) {
-                    binarySum = b.substring(0, bPointer) + binarySum;
-                } else {
-                    if (remainder == 1) {
-                        binarySum = "1" + binarySum;
-                        remainder = 0;
-                    }
-                }
-            }
-        } else {
-            if (remainder == 1) {
-                binarySum = "1" + binarySum;
-                remainder = 0;
-            }
+        if (remainder == 1) {
+            binarySum = "1" + binarySum;
+            remainder = 0;
         }
             
         return binarySum;
