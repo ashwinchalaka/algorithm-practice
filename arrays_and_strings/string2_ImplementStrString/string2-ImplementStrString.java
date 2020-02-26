@@ -10,12 +10,22 @@ class Solution {
             if (haystack.compareTo(needle) == 0)
                 return 0;
         } else {
-            for (int i = 0; i < haystack.length()-lengthDiff; i++) {
-                String subStrToCompare = haystack.substring(i, i+needle.length());
+            
+            int haystackPointer = 0;
+            String subStrToCompare;
+            
+            while (haystackPointer < haystack.length()-lengthDiff) {
+                subStrToCompare = haystack.substring(haystackPointer, haystackPointer+needle.length());
                 System.out.println(subStrToCompare);
                 if (subStrToCompare.compareTo(needle) == 0)
-                    return i;
+                    return haystackPointer;
+                haystackPointer++;
             }
+            
+            // subStrToCompare = haystack.substring(haystackPointer, haystackPointer+needle.length());
+            // System.out.println(subStrToCompare);
+            // if (subStrToCompare.compareTo(needle) == 0)
+            //     return haystackPointer;
         }
         
         return -1;        
