@@ -1,135 +1,104 @@
 class Solution {
     public String addBinary(String a, String b) {
         
-        int remainder = 0;
+        String binarySum = "";
+
         int aPointer = a.length()-1;
         int bPointer = b.length()-1;
         
-        String binarySum = "";
-        String tempStr = "";
+        int valueAtAPointer;
+        int valueAtBPointer;
+        int remainder = 0;
         
-        if (a.length() == b.length()) {
+        while (aPointer > -1 && bPointer > -1) {
             
-            for (int i = a.length()-1; i >= 0; i--) {
-                if (Character.getNumericValue(a.charAt(i)) == 0 && Character.getNumericValue(b.charAt(i)) == 0) {
-                    if (remainder == 1) {
-                        tempStr = "1" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 0;
-                    } else {
-                        tempStr = "0" + binarySum;
-                        binarySum = tempStr;
-                    }
-                    
-                } else if (Character.getNumericValue(a.charAt(i)) == 1 && Character.getNumericValue(b.charAt(i)) == 1) {
-                    if (remainder == 1) {
-                        tempStr = "1" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 1;
-                    } else {
-                        tempStr = "0" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 1;
-                    }
+            valueAtAPointer = Character.getNumericValue(a.charAt(aPointer));
+            valueAtBPointer = Character.getNumericValue(b.charAt(bPointer));
+            
+            if (valueAtAPointer == 0 && valueAtBPointer == 0) {
+                if (remainder == 1) {
+                    binarySum = "1" + binarySum;
+                    remainder = 0;
                 } else {
-                    if (remainder == 1) {
-                        tempStr = "0" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 1;
-                    } else
-                        tempStr = "1" + binarySum;
-                        binarySum = tempStr;
+                    binarySum = "0" + binarySum;
                 }
+            } else if (valueAtAPointer == 1 && valueAtBPointer == 1) {
+                if (remainder == 1) {
+                    binarySum = "1" + binarySum;
+                    remainder = 1;
+                } else {
+                    binarySum = "0" + binarySum;
+                    remainder = 1;
+                }
+            } else {
+                if (remainder == 1) {
+                    binarySum = "0" + binarySum;
+                    remainder = 1;
+                } else
+                    binarySum = "1" + binarySum;
             }
             
+            aPointer--;
+            bPointer--;
+        }
+        
+        if (aPointer > -1) {
             if (remainder == 1) {
-                tempStr = "1" + binarySum;
-                binarySum = tempStr;
-                remainder = 0;
-            }
-        // }
-        } else if (a.length() > b.length()) {
-            for (int i = b.length()-1; i >= 0; i--) {
-                
-                // System.out.println("a @ index " + i + " = " + Character.getNumericValue(a.charAt(i)));
-                // System.out.println("b @ index " + i + " = " + Character.getNumericValue(b.charAt(i)));
-                
-                if (Character.getNumericValue(a.charAt(i)) == 0 && Character.getNumericValue(b.charAt(i)) == 0) {
-                    System.out.println("2x ZERO");
-                    if (remainder == 1) {
-                        tempStr = "1" + binarySum;
-                        binarySum = tempStr;
+                while (remainder == 1 && aPointer > -1) {
+                    valueAtAPointer = Character.getNumericValue(a.charAt(aPointer));
+                    
+                    if (valueAtAPointer == 0) {
+                        binarySum = "1" + binarySum;
                         remainder = 0;
                     } else {
-                        tempStr = "0" + binarySum;
-                        binarySum = tempStr;
+                        binarySum = "0" + binarySum;
+                        remainder = 1;
                     }
                     
-                } else if (Character.getNumericValue(a.charAt(i)) == 1 && Character.getNumericValue(b.charAt(i)) == 1) {
-                    System.out.println("2x ONE");
-                    if (remainder == 1) {
-                        tempStr = "1" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 1;
-                    } else {
-                        tempStr = "0" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 1;
-                    }
+                    aPointer--;
+                }
+                
+                if (aPointer > -1) {
+                    binarySum = a.substring(0, aPointer) + binarySum;
                 } else {
-                    System.out.println("1x ONE, 1x ZERO");
                     if (remainder == 1) {
-                        tempStr = "0" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 1;
-                    } else
-                        tempStr = "1" + binarySum;
-                        binarySum = tempStr;
+                        binarySum = "1" + binarySum;
+                        remainder = 0;
+                    }
                 }
             }
-        } else if (a.length() < b.length()) {
-            for (int i = a.length()-1; i >= 0; i--) {
-                
-                // System.out.println("a @ index " + i + " = " + Character.getNumericValue(a.charAt(i)));
-                // System.out.println("b @ index " + i + " = " + Character.getNumericValue(b.charAt(i)));
-                
-                if (Character.getNumericValue(a.charAt(i)) == 0 && Character.getNumericValue(b.charAt(i)) == 0) {
-                    System.out.println("2x ZERO");
-                    if (remainder == 1) {
-                        tempStr = "1" + binarySum;
-                        binarySum = tempStr;
+        } else if (bPointer > -1) {
+            if (remainder == 1) {        
+                while (remainder == 1 && bPointer > -1) {
+                    valueAtBPointer = Character.getNumericValue(b.charAt(bPointer));
+                    
+                    if (valueAtBPointer == 0) {
+                        binarySum = "1" + binarySum;
                         remainder = 0;
                     } else {
-                        tempStr = "0" + binarySum;
-                        binarySum = tempStr;
+                        binarySum = "0" + binarySum;
+                        remainder = 1;
                     }
                     
-                } else if (Character.getNumericValue(a.charAt(i)) == 1 && Character.getNumericValue(b.charAt(i)) == 1) {
-                    System.out.println("2x ONE");
-                    if (remainder == 1) {
-                        tempStr = "1" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 1;
-                    } else {
-                        tempStr = "0" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 1;
-                    }
+                    bPointer--;
+                }
+                
+                if (bPointer > -1) {
+                    binarySum = b.substring(0, bPointer) + binarySum;
                 } else {
-                    System.out.println("1x ONE, 1x ZERO");
                     if (remainder == 1) {
-                        tempStr = "0" + binarySum;
-                        binarySum = tempStr;
-                        remainder = 1;
-                    } else
-                        tempStr = "1" + binarySum;
-                        binarySum = tempStr;
+                        binarySum = "1" + binarySum;
+                        remainder = 0;
+                    }
                 }
             }
         } else {
-            System.out.println("Something went wrong");
+            if (remainder == 1) {
+                binarySum = "1" + binarySum;
+                remainder = 0;
+            }
         }
-        
+            
         return binarySum;
     }
 }
