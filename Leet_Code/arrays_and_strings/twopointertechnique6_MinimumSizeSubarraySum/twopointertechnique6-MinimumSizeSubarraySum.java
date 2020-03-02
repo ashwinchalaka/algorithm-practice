@@ -1,35 +1,43 @@
 class Solution {
     public int minSubArrayLen(int s, int[] nums) {
         
+        if (nums.length == 1 && nums[0] >= s)
+            return 1;            
+        
         int minSAL = nums.length;
-        int subArrayLength = 0;
+        
+        int subLength = 0;
         int subSum = 0;
         
         for (int i = 0; i < nums.length; i++) {
-            
             subSum += nums[i];
-
-            if (subSum > s) {
-                // subSum -= nums[i];
-                
-                if (subArrayLength < minSAL)
-                    minSAL = subArrayLength;
-                
-                subArrayLength = 0;
-                subSum = 0;
-            } else {
-                subArrayLength++;
-            }
+            subLength++;
             
+            if (subSum >= s) {
+                if (subLength < minSAL)
+                    minSAL = subLength;
+                
+                subLength = 0;
+                subSum = 0;
+            }
         }
         
-        if (subArrayLength > 0 && subArrayLength < minSAL) {
-            minSAL = subArrayLength;
-        }
+        subLength = 0;
+        subSum = 0;
         
-        if (minSAL == nums.length)
-            return 0;
-        else        
-            return minSAL;        
+        for (int j = nums.length-1; j > 0; j--) {
+            subSum += nums[j];
+            subLength++;
+            
+            if (subSum >= s) {
+                if (subLength < minSAL)
+                    minSAL = subLength;
+                
+                subLength = 0;
+                subSum = 0;
+            }            
+        }
+
+        return minSAL;
     }
 }
