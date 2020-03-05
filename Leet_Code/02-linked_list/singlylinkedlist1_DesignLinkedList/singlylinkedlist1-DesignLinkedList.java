@@ -6,8 +6,8 @@ class MyLinkedList {
         private LLNode next;
         
         /** Initialize node for linked list */
-        public LLNode() {
-            val = null;
+        public LLNode(int firstVal) {
+            val = firstVal;
             next = null;
         }
         
@@ -20,7 +20,7 @@ class MyLinkedList {
     
     /** Initialize your data structure here. */
     public MyLinkedList() {
-        head = new LLNode();
+        head.next = null;
     }
     
     /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
@@ -31,7 +31,7 @@ class MyLinkedList {
         if (runner != null) {
             while (runner != null) {
                 count++;
-                if (runner.val != null && count == index)
+                if (count == index)
                     return runner.val;
                 
                 if (runner.next != null)
@@ -46,24 +46,23 @@ class MyLinkedList {
     
     /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
     public void addAtHead(int val) {
-        if (head.val == null) {
-            head.val = val;
+        if (head == null) {
+            LLNode newHead = new LLNode(val);
+            head = newHead;
             return;
         }
         
-        LLNode newHead = new LLNode();
-        newHead.setVal(val);
+        LLNode newHead = new LLNode(val);
         newHead.next = head;
         head = newHead;
     }
     
     /** Append a node of value val to the last element of the linked list. */
     public void addAtTail(int val) {
-        if (head.val == null)
+        if (head == null)
             return;
         
-        LLNode newTail = new LLNode();
-        newTail.setVal(val);
+        LLNode newTail = new LLNode(val);
         
         LLNode runner = head;
         
@@ -76,11 +75,10 @@ class MyLinkedList {
     
     /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
     public void addAtIndex(int index, int val) {
-        if (index = 0)
+        if (index == 0)
             addAtHead(val);
         
-        LLNode newNode = new LLNode();
-        newNode.setVal(val);
+        LLNode newNode = new LLNode(val);
         
         LLNode runner = head;
         int count = -1;
@@ -115,12 +113,11 @@ class MyLinkedList {
             } else if (count+1 == index && runner.next != null && runner.next.next == null) {
                 runner.next = null;
                 return;
-            } else {
+            } else if (count+1 == index && runner.next != null && runner.next.next != null) {
                 runner.next = runner.next.next;
                 return;
-            }
-            
-            runner = runner.next;
+            } else
+                runner = runner.next;
         }
     }
 }
