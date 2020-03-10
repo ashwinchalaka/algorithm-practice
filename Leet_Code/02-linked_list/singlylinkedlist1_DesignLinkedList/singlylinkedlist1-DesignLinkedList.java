@@ -1,6 +1,7 @@
 ["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"]
 [[],[1],[3],[1,2],[1],[1],[1]]
-
+["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"]
+[[],[1],[3],[1,2],[1],[0],[0]]
 
 class MyLinkedList {
     
@@ -34,23 +35,28 @@ class MyLinkedList {
     
     /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
     public int get(int index) {
-        LLNode runner = head;
-        int count = -1;
-        
-        if (runner != null) {
+        if (head == null || index > length || index < 0)
+            return -1;
+        else if (index == 0)
+            return head.val;
+        else {
+            LLNode runner = head.next;
+            int count = 0;
+
             while (runner != null) {
                 count++;
+
                 if (count == index)
                     return runner.val;
-                
-                if (runner.next != null)
-                    runner = runner.next;
-                else
-                    break;
+
+                runner = runner.next;
             }
-        }        
-        
-        return -1;
+            
+            if (count == index)
+                return runner.val;
+            else
+                return -1;
+        }
     }
     
     private void printList() {
@@ -154,25 +160,34 @@ class MyLinkedList {
     
     /** Delete the index-th node in the linked list, if the index is valid. */
     public void deleteAtIndex(int index) {
+        if (head == null || index < 0 || index > length)
+            return;
+        
         LLNode runner = head;
         int count = -1;
         
+        System.out.println("--------------------");
+        printList();
+        
         while (runner.next != null) {
             count++;
-            if (count > index)
-                return;
-            
-            if (count+1 == index && runner.next == null) {
+            if (count+1 == index && runner.next != null && runner.next.next != null) {
+                runner.next = runner.next.next;
+                length--;
+                printList();
                 return;
             } else if (count+1 == index && runner.next != null && runner.next.next == null) {
                 runner.next = null;
+                length--;
+                printList();
                 return;
-            } else if (count+1 == index && runner.next != null && runner.next.next != null) {
-                runner.next = runner.next.next;
-                return;
-            } else
-                runner = runner.next;
+            }
+            // } else if (count+1 == index && runner.next == null) {
+                
+            runner = runner.next;
         }
+        
+        printList();
     }
 }
 
