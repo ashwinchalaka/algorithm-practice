@@ -1,3 +1,7 @@
+["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"]
+[[],[1],[3],[1,2],[1],[1],[1]]
+
+
 class MyLinkedList {
     
     /** Node */
@@ -20,7 +24,9 @@ class MyLinkedList {
     
     /** Initialize your data structure here. */
     public MyLinkedList() {
-        head.next = null;
+        head = null;
+        System.out.println("--------------------");
+        printList();
     }
     
     /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
@@ -44,23 +50,52 @@ class MyLinkedList {
         return -1;
     }
     
-    /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
-    public void addAtHead(int val) {
+    private void printList() {
+        String listStr = "[";
+        
         if (head == null) {
-            LLNode newHead = new LLNode(val);
-            head = newHead;
+            listStr += "null]";
+            System.out.println(listStr);
             return;
         }
         
+        LLNode walker = head;
+        
+        while (walker != null) {
+            listStr += walker.val + "] --> [";
+            walker = walker.next;
+        }
+        
+        listStr = listStr.substring(0,listStr.length()-6);
+        System.out.println(listStr);
+    }
+    
+    /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
+    public void addAtHead(int val) {
         LLNode newHead = new LLNode(val);
-        newHead.next = head;
-        head = newHead;
+        
+        System.out.println("--------------------");
+        printList();
+        
+        if (head == null)
+            head = newHead;
+        else {
+            newHead.next = head;
+            head = newHead;
+        }
+        
+        printList();
     }
     
     /** Append a node of value val to the last element of the linked list. */
     public void addAtTail(int val) {
-        if (head == null)
+        if (head == null) {
+            addAtHead(val);
             return;
+        }
+        
+        System.out.println("--------------------");
+        printList();
         
         LLNode newTail = new LLNode(val);
         
@@ -71,6 +106,8 @@ class MyLinkedList {
         }
         
         runner.next = newTail;
+        
+        printList();
     }
     
     /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
