@@ -21,10 +21,13 @@ class MyLinkedList {
     }
 
     private LLNode head;
+    private int length;
     
     /** Initialize your data structure here. */
     public MyLinkedList() {
         head = null;
+        length = 0;
+        
         System.out.println("--------------------");
         printList();
     }
@@ -84,6 +87,7 @@ class MyLinkedList {
             head = newHead;
         }
         
+        length++;
         printList();
     }
     
@@ -98,7 +102,6 @@ class MyLinkedList {
         printList();
         
         LLNode newTail = new LLNode(val);
-        
         LLNode runner = head;
         
         while (runner.next != null) {
@@ -106,32 +109,46 @@ class MyLinkedList {
         }
         
         runner.next = newTail;
+        length++;
         
         printList();
     }
     
     /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
     public void addAtIndex(int index, int val) {
-        if (index == 0)
+        if (index == 0) {
             addAtHead(val);
-        
-        LLNode newNode = new LLNode(val);
-        
-        LLNode runner = head;
-        int count = -1;
-        
-        while (runner.next != null) {
-            count++;
-            if (count > index)
-                return;
+            return;
+        } else if (index == length) {
+            addAtTail(val);
+            return;
+        } else if (index > 0 && index < length) {
+            LLNode newNode = new LLNode(val);
+            LLNode runner = head;
+            int count = -1;
+
+            System.out.println("--------------------");
+            printList();
             
-            if (count+1 == index) {
-                newNode.next = runner.next;
-                runner.next = newNode;
-                return;
+            while (runner.next != null) {
+                count++;
+                // if (count > index)
+                //     return;
+
+                if (count+1 == index) {
+                    newNode.next = runner.next;
+                    runner.next = newNode;
+                    length++;
+                    printList();
+                    return;
+                }
+
+                runner = runner.next;
             }
-            
-            runner = runner.next;
+        } else {
+            System.out.println("--------------------");
+            System.out.println("Invalid index location!");
+            return;
         }
     }
     
