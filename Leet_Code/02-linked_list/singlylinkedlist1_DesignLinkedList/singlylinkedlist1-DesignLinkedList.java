@@ -2,6 +2,8 @@
 [[],[1],[3],[1,2],[1],[1],[1]]
 ["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"]
 [[],[1],[3],[1,2],[1],[0],[0]]
+["MyLinkedList","addAtHead","deleteAtIndex"]
+[[],[1],[0]]
 
 class MyLinkedList {
     
@@ -29,8 +31,8 @@ class MyLinkedList {
         head = null;
         length = 0;
         
-        System.out.println("--------------------");
-        printList();
+        // System.out.println("--------------------");
+        // printList();
     }
     
     /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
@@ -83,8 +85,8 @@ class MyLinkedList {
     public void addAtHead(int val) {
         LLNode newHead = new LLNode(val);
         
-        System.out.println("--------------------");
-        printList();
+        // System.out.println("--------------------");
+        // printList();
         
         if (head == null)
             head = newHead;
@@ -94,7 +96,7 @@ class MyLinkedList {
         }
         
         length++;
-        printList();
+        // printList();
     }
     
     /** Append a node of value val to the last element of the linked list. */
@@ -104,8 +106,8 @@ class MyLinkedList {
             return;
         }
         
-        System.out.println("--------------------");
-        printList();
+        // System.out.println("--------------------");
+        // printList();
         
         LLNode newTail = new LLNode(val);
         LLNode runner = head;
@@ -117,7 +119,7 @@ class MyLinkedList {
         runner.next = newTail;
         length++;
         
-        printList();
+        // printList();
     }
     
     /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
@@ -133,19 +135,17 @@ class MyLinkedList {
             LLNode runner = head;
             int count = -1;
 
-            System.out.println("--------------------");
-            printList();
+            // System.out.println("--------------------");
+            // printList();
             
             while (runner.next != null) {
                 count++;
-                // if (count > index)
-                //     return;
 
                 if (count+1 == index) {
                     newNode.next = runner.next;
                     runner.next = newNode;
                     length++;
-                    printList();
+                    // printList();
                     return;
                 }
 
@@ -162,14 +162,23 @@ class MyLinkedList {
     public void deleteAtIndex(int index) {
         if (head == null || index < 0 || index > length)
             return;
+        else if (index == 0 && length == 1) {
+            head = null;
+            length--;
+            return;
+        } else if (index == 0 && length > 1) {
+            head = head.next;
+            length--;
+            return;
+        }
         
         LLNode runner = head;
         int count = -1;
         
-        System.out.println("--------------------");
-        printList();
+        // System.out.println("--------------------");
+        // printList();
         
-        while (runner.next != null) {
+        while (runner != null) {
             count++;
             if (count+1 == index && runner.next != null && runner.next.next != null) {
                 runner.next = runner.next.next;
@@ -182,12 +191,11 @@ class MyLinkedList {
                 printList();
                 return;
             }
-            // } else if (count+1 == index && runner.next == null) {
                 
             runner = runner.next;
         }
         
-        printList();
+        // printList();
     }
 }
 
