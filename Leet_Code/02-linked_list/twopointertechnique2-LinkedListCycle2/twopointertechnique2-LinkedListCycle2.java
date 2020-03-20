@@ -23,14 +23,16 @@ public class Solution {
             int cycleCount = 0;
 
             while (cycleCount < 10000) {
-                if (fast1.next != null && fast1.next.next != null) {
-                    slow1 = slow1.next;
-                    fast1 = fast1.next.next;
+                if (fast1 == null || fast1.next == null || fast1.next.next == null) {
+                    return null;
                 }
-
-                if (slow1 == fast1)
+                
+                // last piece of the logic ?
+                if (fast1.next == slow1)
                     return slow1;
-
+                
+                fast1 = fast1.next.next;
+                slow1 = slow1.next;
                 cycleCount++;
             }
         }
