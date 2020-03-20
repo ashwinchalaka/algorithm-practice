@@ -19,20 +19,26 @@ public class Solution {
             return head;
         else {
             ListNode slow1 = head;
-            ListNode fast1 = head.next;
+            ListNode fast1 = head;
             int cycleCount = 0;
 
             while (cycleCount < 10000) {
-                if (fast1 == null || fast1.next == null || fast1.next.next == null) {
-                    return null;
-                }
-                
-                // last piece of the logic ?
-                if (fast1.next == slow1)
-                    return slow1;
-                
                 fast1 = fast1.next.next;
                 slow1 = slow1.next;
+                
+                if (fast1 == null || fast1.next == null || fast1.next.next == null)
+                    return null;
+                else if (fast1.next == head)
+                    return head;
+                
+                if (fast1 == slow1) {
+                    ListNode slow2 = head; 
+                    while (slow2 != slow1){
+                        slow1 = slow1.next;
+                        slow2 = slow2.next;
+                    }
+                    return slow1;
+                }
                 cycleCount++;
             }
         }
