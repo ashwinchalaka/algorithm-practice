@@ -19,20 +19,20 @@ public class Solution {
             return true;
         else {
             ListNode slow1 = head;
-            ListNode fast1 = head.next;
+            ListNode fast1 = head;
             int cycleCount = 0;
 
             while (cycleCount < 10000) {
                 
                 if (fast1.next == null || fast1.next.next == null)
                     return false;
-                else
-                    fast1 = fast1.next.next;
-
+                
+                fast1 = fast1.next.next;
+                slow1 = slow1.next;
+                
                 if (slow1 == fast1)
                     return true;
 
-                slow1 = slow1.next;
                 cycleCount++;
             }
         }
