@@ -17,17 +17,14 @@ class Solution {
         ListNode p1 = head;
         
         while (p1 != null) {
-            if (p1.val == val && p0 == null) {
-                head = p1.next;
-                if (head != null)
-                    p1 = head;
+            if (p1.val == val) {
+                if (p0 == null)
+                    head = p1.next;
                 else
-                    break;
-            } else {
-                p0.next = p1.next;
-                p0 = p1;
-                p1 = p1.next;
+                    p0.next = p1.next;
             }
+            p0 = p1;
+            p1 = p1.next;
         }
         
         return head;
