@@ -15,12 +15,11 @@ class Solution {
         
         while (p1 != null) {
             count++;
-            
-            if (count == n)
-                p2 = head;
-                
             p1 = p1.next;
-            if (p2 != null)
+            
+            if (count == n+1)
+                p2 = head;
+            else if (p2 != null)
                 p2 = p2.next;
         }
         
