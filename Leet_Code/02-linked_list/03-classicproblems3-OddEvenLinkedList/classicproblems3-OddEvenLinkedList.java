@@ -15,19 +15,19 @@ class Solution {
         ListNode head2 = head.next;
         ListNode p1 = head1;
         ListNode p2 = head2;
-        boolean isOdd = true;
+        // boolean isOdd = true;
         
-        while (p1 != null && p2 != null) {
-            if (isOdd) {
-                if (p2.next == null)
-                    break;
-                p1.next = p2.next;
+        while (p1.next != null && p2.next != null) {
+            // if (isOdd) {
+                // if (p2.next == null)
+                //     break;
+                p1.next = p1.next.next;
                 p1 = p1.next;
-            } else {
-                p2.next = p1.next;
+            // } else {
+                p2.next = p2.next.next;
                 p2 = p2.next;
-            }
-            isOdd = !isOdd;
+            // }
+            // isOdd = !isOdd;
         }
         
         p1.next = head2;
