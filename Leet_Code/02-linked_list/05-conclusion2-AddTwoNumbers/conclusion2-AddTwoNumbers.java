@@ -7,48 +7,68 @@
  * }
  */
 class Solution {
-    private static ListNode reverseListWithLength(ListNode head) {
-        ListNode fastPointer = head;
-        ListNode slowPointer = null;
-        
-        int length = 0;
-        
-        while (head != null) {
-            head = fastPointer.next;
-            fastPointer.next = slowPointer;
-            slowPointer = fastPointer;
-            fastPointer = head;
-            length++;
-        }
-        
-        ListNode node4Length = new ListNode(length);
-        node4Length.next = slowPointer;
-        
-        return node4Length;
-    }
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode walkerfor1 = reverseListWithLength(l1);
-        int l1Length = walkerfor1.val;
-        walkerfor1 = walkerfor1.next;
+        int carryPlaceholder = 0;
+        ListNode sumCurrent = new ListNode(l1.val+l2.val);
+        if (sumCurrent.val >= 10) {
+            sumCurrent.val = sumCurrent.val - 10;
+            carryPlaceholder = 1;
+        }
+        ListNode sumHead = sumCurrent;
+        l1 = l1.next;
+        l2 = l2.next;
         
-        ListNode walkerfor2 = reverseListWithLength(l2);
-        int l2Length = walkerfor2.val;
-        walkerfor2 = walkerfor2.next;
-        
-        int sum = 0;
-        
-        while (walkerfor1 != null) {
-            sum += walkerfor1.val * Math.pow(10,l1Length-1);
-            walkerfor1 = walkerfor1.next;
-            l1Length--;
+        while (l1 != null && l2 != null) {
+            sumCurrent.next = new ListNode(l1.val+l2.val+carryPlaceholder);
+            sumCurrent = sumCurrent.next;
+
+            if (sumCurrent.val >= 10) {
+                sumCurrent.val = sumCurrent.val - 10;
+                carryPlaceholder = 1;
+            } else {
+                carryPlaceholder = 0;
+            }
+
+            l1 = l1.next;
+            l2 = l2.next;
         }
         
-        while (walkerfor2 != null) {
-            sum += walkerfor1.val * Math.pow(10,l2Length-1);
-            walkerfor2 = walkerfor2.next;
-            l2Length--;
+        if (l1 == null && l2 != null) {
+            while (l2 != null) {
+                sumCurrent.next = new ListNode(l2.val+carryPlaceholder);
+                sumCurrent = sumCurrent.next;
+
+                if (sumCurrent.val >= 10) {
+                    sumCurrent.val = sumCurrent.val - 10;
+                    carryPlaceholder = 1;
+                } else {
+                    carryPlaceholder = 0;
+                }
+
+                l2 = l2.next;
+            }
+        } else if (l1 != null && l2 == null) {
+            while (l1 != null) {
+                sumCurrent.next = new ListNode(l1.val+carryPlaceholder);
+                sumCurrent = sumCurrent.next;
+
+                if (sumCurrent.val >= 10) {
+                    sumCurrent.val = sumCurrent.val - 10;
+                    carryPlaceholder = 1;
+                } else {
+                    carryPlaceholder = 0;
+                }
+
+                l1 = l1.next;
+            }
         }
         
-        return sum;
+        if (carryPlaceholder == 1) {
+            sumCurrent.next = new ListNode(carryPlaceholder);
+            sumCurrent = sumCurrent.next;
+            carryPlaceholder = 0;
+        }
+        
+        return sumHead;
     }
 }
