@@ -21,22 +21,22 @@ class Solution {
         return slowPointer;
     }
     
-    private static void printList(ListNode head) {
-        ListNode walker = head;
-        String str = "";
+//     private static void printList(ListNode head) {
+//         ListNode walker = head;
+//         String str = "";
         
-        while (walker != null) {
-            str += walker.val + " -> ";
-            walker = walker.next;
-        }
+//         while (walker != null) {
+//             str += walker.val + " -> ";
+//             walker = walker.next;
+//         }
         
-        str = str.substring(0, str.length()-4);
+//         str = str.substring(0, str.length()-4);
         
-        System.out.println(str);
-    }
+//         System.out.println(str);
+//     }
     
     public boolean isPalindrome(ListNode head) {
-        printList(head);
+        // printList(head);
         // ListNode head2 = reverseList(head);
         // printList(head2);
         // return false;
