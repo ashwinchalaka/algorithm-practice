@@ -7,7 +7,40 @@
  * }
  */
 class Solution {
+    private static ListNode reverseList(ListNode head) {
+        ListNode fastPointer = head;
+        ListNode slowPointer = null;
+        
+        while (head != null) {
+            head = fastPointer.next;
+            fastPointer.next = slowPointer;
+            slowPointer = fastPointer;
+            fastPointer = head;
+        }
+        
+        return slowPointer;
+    }
+    
+    private static void printList(ListNode head) {
+        ListNode walker = head;
+        String str = "";
+        
+        while (walker != null) {
+            str += walker.val + " -> ";
+            walker = walker.next;
+        }
+        
+        str = str.substring(0, str.length()-4);
+        
+        System.out.println(str);
+    }
+    
     public boolean isPalindrome(ListNode head) {
+        printList(head);
+        // ListNode head2 = reverseList(head);
+        // printList(head2);
+        // return false;
+        
         if (head == null || head.next == null)
             return true;
         
@@ -20,24 +53,32 @@ class Solution {
         }
         
         walker = head;
-        int indexTracker = 0;
-        int palindromeSum = 0;
+        ListNode head2 = null;
         
-        while (walker != null) {
-            if (indexTracker < listLength/2)
-                palindromeSum += walker.val;
-            else if (indexTracker > listLength/2)
-                palindromeSum -= walker.val;
-            else if (listLength % 2 == 0 && indexTracker == listLength/2)
-                palindromeSum -= walker.val;
-            
-            walker = walker.next;
-            indexTracker++;
+        if (listLength % 2 == 0) {
+            for (int i = 0; i < listLength / 2; i++) {
+                walker = walker.next;
+            }    
+        } else {
+            for (int i = 0; i < listLength / 2 + 1; i++) {
+                walker = walker.next;
+            }
         }
         
-        if (palindromeSum == 0)
-            return true;
-        else
-            return false;
+        head2 = walker;
+        head2 = reverseList(head2);
+        
+        ListNode p1 = head;
+        ListNode p2 = head2;
+        
+        while (p2 != null) {
+            if (p1.val != p2.val)
+                return false;
+            
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        
+        return true;
     }
 }
