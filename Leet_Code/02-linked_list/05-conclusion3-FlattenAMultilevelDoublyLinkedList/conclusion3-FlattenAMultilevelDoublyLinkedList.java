@@ -8,42 +8,47 @@ class Node {
 };
 */
 class Solution {
-    private static void printList(Node head) {
-        Node walker = head;
-        String str = "";
+//     private static void printList(Node head) {
+//         Node walker = head;
+//         String str = "";
         
-        while (walker != null) {
-            str += walker.val + " -> ";
-        }
+//         while (walker != null) {
+//             str += walker.val + " -> ";
+//             walker = walker.next;
+//         }
         
-        str = str.substring(0,str.length()-4);
+//         str = str.substring(0,str.length()-4);
         
-        System.out.println(str);
-    }
+//         System.out.println(str);
+//     }
     
     public Node flatten(Node head) {
+        if (head == null)
+            return head;
+        
         Node walker = head;
+        Node temp = null;
         
         while (walker != null) {
-            // System.out.println(walker.val);
-            
             if (walker.child != null) {
-                // flatten(walker.child);
-                Node temp = walker.next;
-                walker.next = walker.child;
-                
-                Node walker2 = walker.child;
-                while (walker2.next != null) {
-                    walker2 = walker2.next;
-                }
-                walker2.next = temp;
+                temp = walker.next;
+                walker.next = flatten(walker.child);
+                walker.child.prev = walker;
+                walker.child = null;
+            } else {
+                if (walker.next == null)
+                    break;
+                walker = walker.next;
             }
-            
-            walker = walker.next;
-            
         }
         
-        printList(head);
+        if (temp != null) {
+            walker.next = temp;
+            temp.prev = walker;
+            temp = null;
+        }
+        
+        // printList(head);
             
         return head;
     }
