@@ -9,7 +9,7 @@ class MyCircularQueue {
         queueData = new int[k];
         head = -1;
         tail = -1;
-        System.out.println("constructor success");
+        // System.out.println("constructor success");
     }
     
     /** Insert an element into the circular queue. Return true if the operation is successful. */
@@ -75,12 +75,16 @@ class MyCircularQueue {
     
     /** Checks whether the circular queue is full or not. */
     public boolean isFull() {
-        if (head == 0 && tail == queueData.length-1)
-            return true;
-        else if (tail+1 == head)
+        if (head - tail == 1 || tail - head == queueData.length-1)
             return true;
         else
             return false;
+        // if (head == 0 && tail == queueData.length-1)
+        //     return true;
+        // else if (tail == head-1)
+        //     return true;
+        // else
+        //     return false;
     }
 }
 
