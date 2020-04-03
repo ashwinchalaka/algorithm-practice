@@ -6,43 +6,38 @@ class Solution {
             parValues[i] = s.charAt(i);
         }
         
-        // Stack<String> parStack = Stack<String>();
-        Deque<String> parStack = new ArrayDeque<String>();
-        char lastOnStack = 'a'; // Since the character will never be 'a', we are designating this
-                                // character before we start the for loop.
+        Stack<Character> parStack = new Stack<Character>();
         
-        for (int j = 0; j < parValues.length(); j++) {
-            if (lastOnStack == 'a' || lastOnStack.size() == 0) {
+        for (int j = 0; j < parValues.length; j++) {
+            if (parStack.empty()) {
                 if (parValues[j] == ')' || parValues[j] == ']' || parValues[j] == '}')
                     return false;
                 else
                     parStack.add(parValues[j]);
-            } else if (lastOnStack = '(') {
+            } else if (parStack.peek() == '(') {
                 if (parValues[j] == '(' || parValues[j] == '[' || parValues[j] == '{')
                     parStack.push(parValues[j]);
-                else if (parValues[j] = ')')
+                else if (parValues[j] == ')')
                     parStack.pop();
                 else
                     return false;
-            } else if (lastOnStack = '[') {
+            } else if (parStack.peek() == '[') {
                 if (parValues[j] == '(' || parValues[j] == '[' || parValues[j] == '{')
                     parStack.push(parValues[j]);
-                else if (parValues[j] = ']')
+                else if (parValues[j] == ']')
                     parStack.pop();
                 else
                     return false;
-            } else if (lastOnStack = '{') {
+            } else if (parStack.peek() == '{') {
                 if (parValues[j] == '(' || parValues[j] == '[' || parValues[j] == '{')
                     parStack.push(parValues[j]);
-                else if (parValues[j] = '}')
+                else if (parValues[j] == '}')
                     parStack.pop();
                 else
                     return false;
             } else {
                 System.out.println("Something is wrong.");
             }
-            
-            lastOnStack = parStack.peek(parStack.size()-1);
         }
         
         if (parStack.empty())
