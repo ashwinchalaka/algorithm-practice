@@ -1,37 +1,36 @@
 class Solution {
     public boolean isValid(String s) {        
-        char[] parValues = new char[s.length()];
-        
-        for (int i = 0; i < parValues.length; i++) {
-            parValues[i] = s.charAt(i);
-        }
+        if (s == "")
+            return true;
+        else if (s.length() % 2 == 1)
+            return false;
         
         Stack<Character> parStack = new Stack<Character>();
         
-        for (int j = 0; j < parValues.length; j++) {
+        for (int j = 0; j < s.length(); j++) {
             if (parStack.empty()) {
-                if (parValues[j] == ')' || parValues[j] == ']' || parValues[j] == '}')
+                if (s.charAt(j) == ')' || s.charAt(j) == ']' || s.charAt(j) == '}')
                     return false;
                 else
-                    parStack.add(parValues[j]);
+                    parStack.add(s.charAt(j));
             } else if (parStack.peek() == '(') {
-                if (parValues[j] == '(' || parValues[j] == '[' || parValues[j] == '{')
-                    parStack.push(parValues[j]);
-                else if (parValues[j] == ')')
+                if (s.charAt(j) == '(' || s.charAt(j) == '[' || s.charAt(j) == '{')
+                    parStack.push(s.charAt(j));
+                else if (s.charAt(j) == ')')
                     parStack.pop();
                 else
                     return false;
             } else if (parStack.peek() == '[') {
-                if (parValues[j] == '(' || parValues[j] == '[' || parValues[j] == '{')
-                    parStack.push(parValues[j]);
-                else if (parValues[j] == ']')
+                if (s.charAt(j) == '(' || s.charAt(j) == '[' || s.charAt(j) == '{')
+                    parStack.push(s.charAt(j));
+                else if (s.charAt(j) == ']')
                     parStack.pop();
                 else
                     return false;
             } else if (parStack.peek() == '{') {
-                if (parValues[j] == '(' || parValues[j] == '[' || parValues[j] == '{')
-                    parStack.push(parValues[j]);
-                else if (parValues[j] == '}')
+                if (s.charAt(j) == '(' || s.charAt(j) == '[' || s.charAt(j) == '{')
+                    parStack.push(s.charAt(j));
+                else if (s.charAt(j) == '}')
                     parStack.pop();
                 else
                     return false;
