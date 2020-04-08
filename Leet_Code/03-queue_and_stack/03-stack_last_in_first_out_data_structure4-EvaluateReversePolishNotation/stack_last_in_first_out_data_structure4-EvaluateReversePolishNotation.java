@@ -37,6 +37,9 @@ class Solution {
     }
     
     public int evalRPN(String[] tokens) {
+        if (tokens.length == 1)
+            return Integer.parseInt(tokens[0]);
+        
         int result = 0;
         int currIndex = 0;
         Stack<Integer> stack = new Stack<Integer>();
@@ -47,7 +50,8 @@ class Solution {
                 int rightOperand = stack.pop();
                 int leftOperand = stack.pop();
                 
-                result = calculateOperation(rightOperand, leftOperand, tokens[currIndex]);
+                result = calculateOperation(leftOperand, rightOperand, tokens[currIndex]);
+                System.out.println(leftOperand + " " + tokens[currIndex] + " " + rightOperand + " = " + result);
                 
                 stack.push(result);
             } else {
