@@ -17,21 +17,21 @@ class Solution {
         else
             return false;
     }
-    public static int calculateOperation(String val1, String val2, String operator) {
+    public static int calculateOperation(int val1, int val2, String operator) {
         int result;
         
         switch(operator) {
             case "+":
-                result = Integer.parseInt(val1) + Integer.parseInt(val2);
+                result = val1 + val2;
                 break;
             case "-":
-                result = Integer.parseInt(val1) - Integer.parseInt(val2);
+                result = val1 - val2;
                 break;
             case "/":
-                result = Integer.parseInt(val1) / Integer.parseInt(val2);
+                result = val1 / val2;
                 break;
             case "*":
-                result = Integer.parseInt(val1) * Integer.parseInt(val2);
+                result = val1 * val2;
                 break;
             default:
                 System.out.println("Error in calculation... Invalid operator!");
@@ -61,16 +61,25 @@ class Solution {
         }
         
         if (isFirstOperation(currIndex,tokens)) {
-            System.out.println("This is the first operation! @index: " + currIndex + " with: " + tokens[currIndex] + " " + tokens[currIndex+2] + " " + tokens[currIndex+1]);
+            System.out.println("This is the FIRST operation! @index: " + currIndex + " with: " + tokens[currIndex] + " " + tokens[currIndex+2] + " " + tokens[currIndex+1]);
             
-            result = calculateOperation(tokens[currIndex],tokens[currIndex+1],tokens[currIndex+2]);
+            result = calculateOperation(Integer.parseInt(tokens[currIndex]),Integer.parseInt(tokens[currIndex+1]),tokens[currIndex+2]);
         }
         
         if (!stack.isEmpty())
             currIndex = currIndex+3;
         
         while (!stack.isEmpty()) {
+            if (currIndex >= tokens.length)
+                break;
             
+            System.out.println("This is the NEXT operation! @index: " + currIndex + " with: " + result + " " + tokens[currIndex] + " " + tokens[stack.peek()]);
+            
+            result = calculateOperation(result,Integer.parseInt(tokens[stack.peek()]),tokens[currIndex]);
+            stack.pop();
+            currIndex++;
+            
+            System.out.println("result = " + result);
         }
         
         return result;
