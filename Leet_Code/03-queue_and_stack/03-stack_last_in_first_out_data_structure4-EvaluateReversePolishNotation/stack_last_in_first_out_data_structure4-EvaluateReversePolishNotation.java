@@ -1,18 +1,12 @@
 class Solution {
-    public static boolean isNumber(String val) {
+    public static boolean isOperator(String val) {
         if (val.equals("+"))
-            return false;
-        else if (val.equals("-"))
-            return false;
-        else if (val.equals("/"))
-            return false;
-        else if (val.equals("*"))
-            return false;
-        else
             return true;
-    }
-    public static boolean isFirstOperation(int index, String[] tokens) {
-        if (isNumber(tokens[index]) && isNumber(tokens[index+1]) && !isNumber(tokens[index+2]))
+        else if (val.equals("-"))
+            return true;
+        else if (val.equals("/"))
+            return true;
+        else if (val.equals("*"))
             return true;
         else
             return false;
@@ -42,44 +36,25 @@ class Solution {
         return result;    
     }
     
-    
-//     MAIN FUNCTION HERE...
-    
     public int evalRPN(String[] tokens) {
+        int result = 0;
         int currIndex = 0;
         Stack<Integer> stack = new Stack<Integer>();
         
-        int result = 0;
-        
-        while (!(isFirstOperation(currIndex,tokens))) {
-            if (currIndex >= tokens.length)
-                break;
+        while (currIndex < tokens.length) {
             
-            stack.push(currIndex);
+            if (isOperator(tokens[currIndex])) {
+                int rightOperand = stack.pop();
+                int leftOperand = stack.pop();
+                
+                result = calculateOperation(rightOperand, leftOperand, tokens[currIndex]);
+                
+                stack.push(result);
+            } else {
+                stack.push(Integer.parseInt(tokens[currIndex]));
+            }
             
             currIndex++;
-        }
-        
-        if (isFirstOperation(currIndex,tokens)) {
-            System.out.println("This is the FIRST operation! @index: " + currIndex + " with: " + tokens[currIndex] + " " + tokens[currIndex+2] + " " + tokens[currIndex+1]);
-            
-            result = calculateOperation(Integer.parseInt(tokens[currIndex]),Integer.parseInt(tokens[currIndex+1]),tokens[currIndex+2]);
-        }
-        
-        if (!stack.isEmpty())
-            currIndex = currIndex+3;
-        
-        while (!stack.isEmpty()) {
-            if (currIndex >= tokens.length)
-                break;
-            
-            System.out.println("This is the NEXT operation! @index: " + currIndex + " with: " + result + " " + tokens[currIndex] + " " + tokens[stack.peek()]);
-            
-            result = calculateOperation(result,Integer.parseInt(tokens[stack.peek()]),tokens[currIndex]);
-            stack.pop();
-            currIndex++;
-            
-            System.out.println("result = " + result);
         }
         
         return result;
