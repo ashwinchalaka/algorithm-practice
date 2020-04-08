@@ -12,7 +12,7 @@ class Solution {
                 if (s.charAt(j) == ')' || s.charAt(j) == ']' || s.charAt(j) == '}')
                     return false;
                 else
-                    parStack.add(s.charAt(j));
+                    parStack.push(s.charAt(j));
             } else if (parStack.peek() == '(') {
                 if (s.charAt(j) == '(' || s.charAt(j) == '[' || s.charAt(j) == '{')
                     parStack.push(s.charAt(j));
@@ -39,9 +39,6 @@ class Solution {
             }
         }
         
-        if (parStack.empty())
-            return true;
-        else
-            return false;
+        return parStack.empty();
     }
 }
