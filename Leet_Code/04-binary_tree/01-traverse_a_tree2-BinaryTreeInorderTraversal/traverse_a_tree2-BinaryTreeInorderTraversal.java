@@ -14,33 +14,24 @@ class Solution {
         if (root == null)
             return ioList;
         
-        if (root.left != null) {
-            TreeNode walker = root.left;
-            
-            Stack<TreeNode> stack4NodesLeft = new Stack<TreeNode>();
-            
-            while (walker != null) {
-                stack4NodesLeft.push(walker);
-                walker = walker.left;
-            }
-            
-            while (!stack4NodesLeft.empty()) {
-                walker = stack4NodesLeft.pop();
-                if (walker.left == null)
-                    System.out.println(walker.val);
-                if (walker.right != null)
-                    stack4NodesLeft.push(walker.right);
-                if (walker.left != null)
-                    stack4NodesLeft.push(walker.left);
-            }
+        TreeNode walker = root;
+        Stack<TreeNode> stack4Nodes = new Stack<TreeNode>();
+
+        while (walker.left != null) {
+            if (walker.right != null)
+                stack4Nodes.push(walker.right);
+            stack4Nodes.push(walker);
+            walker = walker.left;
         }
+
+        ioList.add(walker.val);
         
-//         ioList.add(root.val);
-//         System.out.println(root.val);
+        if (walker.right != null)
+            stack4Nodes.push(walker.right);
         
-//         if (root.right != null) {
-//             TreeNode walker = root.right;
-//         }
+        while (!stack4Nodes.empty()) {
+            ioList.add(stack4Nodes.pop().val);
+        }
         
         return ioList;
     }
