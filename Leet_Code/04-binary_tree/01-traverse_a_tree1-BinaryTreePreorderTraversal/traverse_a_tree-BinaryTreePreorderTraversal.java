@@ -14,13 +14,13 @@ class Solution {
         if (root == null)
             return poList;
         
-        Stack<TreeNode> stack4Nodes = new Stack<TreeNode>();
         
         // System.out.println(root.val);
         poList.add(root.val);
         
         if (root.left != null) {
             TreeNode walker = root.left;
+            Stack<TreeNode> stack4Nodes = new Stack<TreeNode>();
 
             while (walker != null) {
                 // System.out.println(walker.val);
@@ -46,6 +46,8 @@ class Solution {
         
         if (root.right != null) {
             TreeNode walker = root.right;
+            Stack<TreeNode> stack4Nodes = new Stack<TreeNode>();
+            
             // System.out.println(walker.val);
             poList.add(walker.val);
 
