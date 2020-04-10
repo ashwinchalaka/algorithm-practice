@@ -14,60 +14,25 @@ class Solution {
         if (root == null)
             return poList;
         
-        
-        // System.out.println(root.val);
-        poList.add(root.val);
-        
-        if (root.left != null) {
-            TreeNode walker = root.left;
-            Stack<TreeNode> stack4Nodes = new Stack<TreeNode>();
+        Stack<TreeNode> stack4Nodes = new Stack<TreeNode>();
+        TreeNode walker = root;
 
-            while (walker != null) {
-                // System.out.println(walker.val);
-                poList.add(walker.val);
-                if (walker.right != null) {
-                    stack4Nodes.add(walker.right);
-                }
-                walker = walker.left;
-            }
-
-            while (!stack4Nodes.empty()) {
-                walker = stack4Nodes.pop();
-                // System.out.println(walker.val);
-                poList.add(walker.val);
-                if (walker.right != null) {
-                    stack4Nodes.add(walker.right);
-                }
-                if (walker.left != null) {
-                    stack4Nodes.add(walker.left);
-                }
-            }
-        }
-        
-        if (root.right != null) {
-            TreeNode walker = root.right;
-            Stack<TreeNode> stack4Nodes = new Stack<TreeNode>();
-            
-            // System.out.println(walker.val);
+        while (walker != null) {
             poList.add(walker.val);
+            if (walker.right != null) {
+                stack4Nodes.add(walker.right);
+            }
+            walker = walker.left;
+        }
 
+        while (!stack4Nodes.empty()) {
+            walker = stack4Nodes.pop();
+            poList.add(walker.val);
             if (walker.right != null) {
                 stack4Nodes.add(walker.right);
             }
             if (walker.left != null) {
                 stack4Nodes.add(walker.left);
-            }
-
-            while (!stack4Nodes.empty()) {
-                walker = stack4Nodes.pop();
-                // System.out.println(walker.val);
-                poList.add(walker.val);
-                if (walker.right != null) {
-                    stack4Nodes.add(walker.right);
-                }
-                if (walker.left != null) {
-                    stack4Nodes.add(walker.left);
-                }
             }
         }
         
