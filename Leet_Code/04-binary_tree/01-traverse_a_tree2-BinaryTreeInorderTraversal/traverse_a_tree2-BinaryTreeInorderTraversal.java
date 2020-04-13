@@ -30,46 +30,20 @@ class Solution {
             walker = stack4Nodes.pop();
             System.out.println(walker.val);
             
-            if (walker.left == null && walker.right == null) {
-                if (!stack4Nodes.empty() && walker == stack4Nodes.peek())
-                    walker = stack4Nodes.pop();
+            if (!stack4Nodes.empty() && walker == stack4Nodes.peek()) {
+                walker = stack4Nodes.pop();
                 ioList.add(walker.val);
-            } else if (walker.left != null && walker.right == null) {
-                if (!stack4Nodes.empty() && walker == stack4Nodes.peek()) {
-                    walker = stack4Nodes.pop();
-                    ioList.add(walker.val);
-                } else {
-                    stack4Nodes.push(walker);
-                    stack4Nodes.push(walker);
-
-                    if (walker.left != null)
-                        stack4Nodes.push(walker.left);
-                }
-            } else if (walker.left == null && walker.right != null) {
-                if (!stack4Nodes.empty() && walker == stack4Nodes.peek()) {
-                    walker = stack4Nodes.pop();
-                    ioList.add(walker.val);
-                } else {
-                    if (walker.right != null)
-                        stack4Nodes.push(walker.right);
-
-                    stack4Nodes.push(walker);
-                    stack4Nodes.push(walker);
-                }
+            } else if (walker.left == null && walker.right == null) {
+                ioList.add(walker.val);
             } else {
-                if (!stack4Nodes.empty() && walker == stack4Nodes.peek()) {
-                    walker = stack4Nodes.pop();
-                    ioList.add(walker.val);
-                } else {
-                    if (walker.right != null)
-                        stack4Nodes.push(walker.right);
+                if (walker.right != null)
+                    stack4Nodes.push(walker.right);
 
-                    stack4Nodes.push(walker);
-                    stack4Nodes.push(walker);
+                stack4Nodes.push(walker);
+                stack4Nodes.push(walker);
 
-                    if (walker.left != null)
-                        stack4Nodes.push(walker.left);
-                }
+                if (walker.left != null)
+                    stack4Nodes.push(walker.left);
             }
         }
         
