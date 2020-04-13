@@ -17,20 +17,30 @@ class Solution {
         TreeNode walker = root;
         Stack<TreeNode> stack4Nodes = new Stack<TreeNode>();
 
-        while (walker.left != null) {
-            if (walker.right != null)
-                stack4Nodes.push(walker.right);
-            stack4Nodes.push(walker);
-            walker = walker.left;
-        }
-
-        ioList.add(walker.val);
-        
         if (walker.right != null)
             stack4Nodes.push(walker.right);
+
+        stack4Nodes.push(walker);
+
+        if (walker.left != null)
+            stack4Nodes.push(walker.left);
         
         while (!stack4Nodes.empty()) {
-            ioList.add(stack4Nodes.pop().val);
+            walker = stack4Nodes.pop();
+            
+            if (walker.left == null && walker.right == null) {
+                ioList.add(walker.val);
+                if (!stack4Nodes.empty()) {
+                    walker = stack4Nodes.pop();
+                    ioList.add(walker.val);
+                }
+            } else {
+                if (walker.right != null)
+                    stack4Nodes.push(walker.right);
+                stack4Nodes.push(walker);
+                if (walker.left != null)
+                    stack4Nodes.push(walker.left);
+            }
         }
         
         return ioList;
