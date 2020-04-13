@@ -25,21 +25,30 @@ class Solution {
         if (walker.left != null)
             stack4Nodes.push(walker.left);
         
+        // walker = stack4Nodes.pop();
+        
         while (!stack4Nodes.empty()) {
             walker = stack4Nodes.pop();
             
             if (walker.left == null && walker.right == null) {
                 ioList.add(walker.val);
-                if (!stack4Nodes.empty()) {
-                    walker = stack4Nodes.pop();
+            } else if (walker.left != null && walker.right == null) {
+                if (walker.left.left == null && walker.left.right == null) {
+                    ioList.add(walker.left.val);
                     ioList.add(walker.val);
+                } else {
+                    stack4Nodes.push(walker);
+                    stack4Nodes.push(walker.left);
+                }
+            } else if (walker.left == null && walker.right != null) {
+                ioList.add(walker.val);
+                if (walker.right.left == null && walker.right.right == null) {
+                    ioList.add(walker.right.val);
+                } else {
+                    stack4Nodes.push(walker.right);
                 }
             } else {
-                if (walker.right != null)
-                    stack4Nodes.push(walker.right);
-                stack4Nodes.push(walker);
-                if (walker.left != null)
-                    stack4Nodes.push(walker.left);
+                
             }
         }
         
