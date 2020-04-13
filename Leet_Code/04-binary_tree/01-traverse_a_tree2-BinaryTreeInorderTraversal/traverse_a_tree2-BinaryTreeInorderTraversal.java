@@ -31,11 +31,11 @@ class Solution {
             System.out.println(walker.val);
             
             if (walker.left == null && walker.right == null) {
-                if (walker == stack4Nodes.peek())
+                if (!stack4Nodes.empty() && walker == stack4Nodes.peek())
                     walker = stack4Nodes.pop();
                 ioList.add(walker.val);
             } else if (walker.left != null && walker.right == null) {
-                if (walker == stack4Nodes.peek()) {
+                if (!stack4Nodes.empty() && walker == stack4Nodes.peek()) {
                     walker = stack4Nodes.pop();
                     ioList.add(walker.val);
                 } else {
@@ -46,7 +46,7 @@ class Solution {
                         stack4Nodes.push(walker.left);
                 }
             } else if (walker.left == null && walker.right != null) {
-                if (walker == stack4Nodes.peek()) {
+                if (!stack4Nodes.empty() && walker == stack4Nodes.peek()) {
                     walker = stack4Nodes.pop();
                     ioList.add(walker.val);
                 } else {
@@ -57,7 +57,19 @@ class Solution {
                     stack4Nodes.push(walker);
                 }
             } else {
-                
+                if (!stack4Nodes.empty() && walker == stack4Nodes.peek()) {
+                    walker = stack4Nodes.pop();
+                    ioList.add(walker.val);
+                } else {
+                    if (walker.right != null)
+                        stack4Nodes.push(walker.right);
+
+                    stack4Nodes.push(walker);
+                    stack4Nodes.push(walker);
+
+                    if (walker.left != null)
+                        stack4Nodes.push(walker.left);
+                }
             }
         }
         
