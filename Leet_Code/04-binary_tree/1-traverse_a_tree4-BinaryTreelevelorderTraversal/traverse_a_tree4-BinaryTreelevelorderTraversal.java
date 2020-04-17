@@ -12,37 +12,36 @@ class Solution {
         
         List<List<Integer>> loList = new ArrayList();
         
-        if (root.val == null)
+        if (root == null)
             return loList;
 
         List<Integer> currentLevel = new ArrayList();
-        Queue<Integer> queue4Nodes1 = new Queue<Integer>();
-        Queue<Integer> queue4Nodes2 = new Queue<Integer>();
+        LinkedList<TreeNode> list4Nodes1 = new LinkedList<TreeNode>();
+        LinkedList<TreeNode> list4Nodes2 = new LinkedList<TreeNode>();
         
         currentLevel.add(root.val);
         loList.add(currentLevel);
         currentLevel = new ArrayList();
 
         if (root.left != null)
-            queue4Nodes1.push(root.left);
+            list4Nodes1.addLast(root.left);
         if (root.right != null)
-            queue4Nodes1.push(root.right);
+            list4Nodes1.addLast(root.right);
         
-        while (!queue4Nodes1.empty() || !queue4Nodes2.empty()) {
-            
-            if (queue4Nodes1.empty()) {
+        while (list4Nodes1.peek() != null || list4Nodes2.peek() != null) {
+            if (list4Nodes1.peek() == null) {
                 loList.add(currentLevel);
-                currentLevel = newArrayList;
-                queue4Nodes1 = queue4Nodes2;
-                queue4Nodes2 = new Queue<Integer>();
+                currentLevel.clear();
+                list4Nodes1 = list4Nodes2;
+                list4Nodes2.clear();
+            } else {
+                if (list4Nodes1.peek().left != null)
+                    list4Nodes2.addLast(list4Nodes1.peek().left);
+                if (list4Nodes1.peek().right != null)
+                    list4Nodes2.addLast(list4Nodes1.peek().right);
+                
+                currentLevel.add(list4Nodes1.removeFirst().val);
             }
-            
-            currentLevel.add(queue4Nodes1.remove().val);
-            
-            if (root.left != null)
-                queue4Nodes2.push(root.left);
-            if (root.right != null)
-                queue4Nodes2.push(root.right);
         }
         
         return loList;
