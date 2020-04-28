@@ -17,6 +17,8 @@ class Solution {
             return true;
         else if (root.left == null && root.right == null)
             return true;
+        else if (root.left == null ^ root.right == null)
+            return false;
         else if (root.left.val != root.right.val)
             return false;
         
@@ -35,19 +37,31 @@ class Solution {
                 TreeNode left = currentLevel.poll();
                 TreeNode right = currentLevel.poll();
 
+//              first, we need to make sure the current level is symmetrical
                 if (left.val != right.val)
                     return false;
                 
+//              next, we need to add the children and if they are valid
+//              OUTER SET
+                if (left.left == null ^ right.right == null)
+                    return false;
+                else if (left.left == null && right.right == null)
+                    continue;
+                else {
+                    currentLevel.add(left.left);
+                    currentLevel.add(right.right);
+                }
+//              INNER SET
+                if (left.right == null ^ right.left == null)
+                    return false;
+                else if (left.right == null && right.left == null)
+                    continue;
+                else {
+                    currentLevel.add(left.right);
+                    currentLevel.add(right.left);
+                }
                 
             }
-            
-//          these are the children belonging to the next level
-//          pair #1: 
-            currentLevel.add(left.left);
-            currentLevel.add(right.right);
-
-            currentLevel.add(left.right);
-            currentLevel.add(right.left);
         }
         
         return true;
