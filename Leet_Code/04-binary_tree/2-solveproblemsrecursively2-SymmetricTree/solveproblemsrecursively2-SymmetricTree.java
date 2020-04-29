@@ -56,7 +56,6 @@ class Solution {
                     currentLevel.add(left.right);
                     currentLevel.add(right.left);
                 }
-                
             }
         }
         
