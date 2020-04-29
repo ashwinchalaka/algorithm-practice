@@ -45,18 +45,14 @@ class Solution {
 //              OUTER SET
                 if (left.left == null ^ right.right == null)
                     return false;
-                else if (left.left == null && right.right == null)
-                    continue;
-                else {
+                else if (left.left != null || right.right != null) {
                     currentLevel.add(left.left);
                     currentLevel.add(right.right);
                 }
 //              INNER SET
                 if (left.right == null ^ right.left == null)
                     return false;
-                else if (left.right == null && right.left == null)
-                    continue;
-                else {
+                else if (left.right != null || right.left != null) {
                     currentLevel.add(left.right);
                     currentLevel.add(right.left);
                 }
