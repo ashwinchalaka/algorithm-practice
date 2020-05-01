@@ -17,18 +17,29 @@ class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         if (inorder.length == postorder.length && inorder.length > 1) {
             TreeNode root = new TreeNode(postorder[postorder.length-1]);
+            
             int ioRootLoc = 0;
-            int leftTreeLength = 0;
-            int rightTreeLength = 0;
+            // int leftTreeLength = 0;
+            // int rightTreeLength = 0;
             
             for (int i = 0; i < inorder.length; i++) {
+                if (inorder[i] == root.val)
+                    break;
                 
+                ioRootLoc++;
+                // leftTreeLength++;
             }
-
-            System.out.println(ioRootLoc + inorder[ioRootLoc]);
             
+            // rightTreeLength = inorder.length - ioRootLoc - 1;
+
+            // System.out.println(ioRootLoc + " " + inorder[ioRootLoc]);
+            // System.out.println("left: " + leftTreeLength + " right: " + rightTreeLength);
+            
+            
+            
+            return root;
         } else if (inorder.length == 1 && postorder.length == 1) {
-            TreeNode root = new TreeNode(postOrder[0]);
+            TreeNode root = new TreeNode(postorder[0]);
             return root;
         } else
             return null;
