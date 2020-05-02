@@ -14,28 +14,57 @@
  * }
  */
 class Solution {
+    private TreeNode buildTreeHelper(ArrayList<Integer> io, ArrayList<Integer> po) {
+        TreeNode root = new TreeNode();
+        
+        String str = "inorder: ";
+        
+        for (int i = 0; i < io.size(); i++) {
+            str += io.get(i) + ", ";
+        }
+        
+        str = str.substring(0, str.length()-2) + "\npostorder: ";
+        
+        for (int j = 0; j < po.size(); j++) {
+            str += po.get(j) + ", ";
+        }
+        
+        str = str.substring(0, str.length()-2) + "\n";
+        
+        System.out.println(str);
+        
+        return root;
+    }    
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         if (inorder.length == postorder.length && inorder.length > 1) {
             TreeNode root = new TreeNode(postorder[postorder.length-1]);
             
             int ioRootLoc = 0;
-            // int leftTreeLength = 0;
-            // int rightTreeLength = 0;
             
             for (int i = 0; i < inorder.length; i++) {
                 if (inorder[i] == root.val)
                     break;
                 
                 ioRootLoc++;
-                // leftTreeLength++;
             }
             
-            // rightTreeLength = inorder.length - ioRootLoc - 1;
-
-            // System.out.println(ioRootLoc + " " + inorder[ioRootLoc]);
-            // System.out.println("left: " + leftTreeLength + " right: " + rightTreeLength);
+            ArrayList<Integer> ioLeft = new ArrayList<>();
+            ArrayList<Integer> ioRight = new ArrayList<>();
+            ArrayList<Integer> poLeft = new ArrayList<>();
+            ArrayList<Integer> poRight = new ArrayList<>();
             
-            
+            for (int i = 0, j = 1; i < inorder.length && j < postorder.length; i++, j++) {
+                if (i < ioRootLoc) {
+                    ioLeft.add(inorder[i]);
+                    poLeft.add(postorder[i]);
+                } else {
+                    ioRight.add(inorder[j]);
+                    poRight.add(postorder[i]);
+                }
+            }
+                        
+            root.left = buildTreeHelper(ioLeft, poLeft);
+            root.right = buildTreeHelper(ioRight, poRight);
             
             return root;
         } else if (inorder.length == 1 && postorder.length == 1) {
