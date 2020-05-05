@@ -41,23 +41,29 @@ class Solution {
             po.remove(0);
         } else if (io.size() == 2) {
             // 1st instance: 2 values correspond to left and root
-            
-            
+            if (io.get(1) == po.get(1)) {
+                root.val = io.remove(1);
+                po.remove(1);
+                root.left = new TreeNode(io.remove(0));
+                po.remove(0);                
+            // 2nd instance: 2 values correspond to root and right
+            } else if (io.get(0) == po.get(1)) {
+                root.val = io.remove(0);
+                po.remove(0);
+                root.right = new TreeNode(io.remove(0));
+                po.remove(0);
+            } else {
+                System.out.println("Recursion, io.size() == 2, unknown inner conditional");
+            }
+        } else if (io.size() == 3) {
             root.val = io.remove(1);
             po.remove(1);
             root.left = new TreeNode(io.remove(0));
             po.remove(0);
-            
-            // 2nd instance: 2 values correspond to root and right
-            
-            root.val = io.remove(0);
-            po.remove(0);
             root.right = new TreeNode(io.remove(0));
             po.remove(0);
-        } else if (io.size() == 3) {
-            
         } else {
-            
+            System.out.println("well we gotta figure something out don't we...");
         }
         
         return root;
