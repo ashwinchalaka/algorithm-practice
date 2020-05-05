@@ -15,9 +15,8 @@
  */
 class Solution {
     private TreeNode buildTreeHelper(ArrayList<Integer> io, ArrayList<Integer> po) {
-        TreeNode root = new TreeNode();
-        
-        String str = "inorder: ";
+              
+        String str = "\ninorder: ";
         
         for (int i = 0; i < io.size(); i++) {
             str += io.get(i) + ", ";
@@ -29,9 +28,37 @@ class Solution {
             str += po.get(j) + ", ";
         }
         
-        str = str.substring(0, str.length()-2) + "\n";
+        str = str.substring(0, str.length()-2);
         
         System.out.println(str);
+        
+        ///////////////////////////////////////////////////////////////////
+        
+        TreeNode root = new TreeNode();
+        
+        if (io.size() == 1) {
+            root.val = io.remove(0);
+            po.remove(0);
+        } else if (io.size() == 2) {
+            // 1st instance: 2 values correspond to left and root
+            
+            
+            root.val = io.remove(1);
+            po.remove(1);
+            root.left = new TreeNode(io.remove(0));
+            po.remove(0);
+            
+            // 2nd instance: 2 values correspond to root and right
+            
+            root.val = io.remove(0);
+            po.remove(0);
+            root.right = new TreeNode(io.remove(0));
+            po.remove(0);
+        } else if (io.size() == 3) {
+            
+        } else {
+            
+        }
         
         return root;
     }    
@@ -47,6 +74,9 @@ class Solution {
                 
                 ioRootLoc++;
             }
+            
+            System.out.println("inorder root: " + inorder[ioRootLoc]);
+            System.out.println("postorder root: " + postorder[postorder.length-1]);
             
             ArrayList<Integer> ioLeft = new ArrayList<>();
             ArrayList<Integer> ioRight = new ArrayList<>();
